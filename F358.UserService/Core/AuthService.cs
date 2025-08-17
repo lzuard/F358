@@ -4,7 +4,6 @@ using System.Security.Cryptography;
 using F358.Shared.Dto;
 using F358.UserService.Base;
 using F358.UserService.Database;
-using F358.UserService.Database.Model;
 using F358.UserService.Dto;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -24,15 +23,15 @@ internal class AuthService(
         await AddRandomDelay(ct);
         var result = new ProcessResultWithData<string?>();
         
-        var user = await GetUserIdOrDefault(dto.Login, dto.Password, ct);
+        var userId = await GetUserIdOrDefault(dto.Login, dto.Password, ct);
 
-        if (user is null)
+        if (userId is null)
         {
             result.Errors.Add("Invalid login or password");
             return result;
         }
 
-        var token = GenerateToken(user);
+        var token = GenerateToken(userId.Value);
         
         result.Data =
         [
@@ -50,24 +49,26 @@ internal class AuthService(
         ct);
     
     
-    private async Task<User?> GetUserIdOrDefault(string? login, string? password, CancellationToken ct)
+    private async Task<Guid?> GetUserIdOrDefault(string? login, string? password, CancellationToken ct)
     {
         if (login is null || password is null)
             return null;
 
         var user = await context.Users
-            .FirstOrDefaultAsync(user => user.Login == login, ct);
+            .Where(user => user.Login == login)
+            .Select(user => new {user.Id, user.PasswordEncrypted, user.EncryptionVersion})
+            .FirstOrDefaultAsync(ct);
         
         if(user is null)
             return null;
 
         var decryptedPassword = cryptoService.Decrypt(user.PasswordEncrypted, user.EncryptionVersion);
 
-        return decryptedPassword != password ? null : user;
+        return decryptedPassword != password ? null : user.Id;
     }
 
     
-    private JwtSecurityToken GenerateToken(User user)
+    private JwtSecurityToken GenerateToken(Guid userId)
     {
         ArgumentNullException.ThrowIfNull(secretOptions.Value.JwtKey);
 
@@ -81,15 +82,14 @@ internal class AuthService(
         
         var token = new JwtSecurityToken(
             expires: DateTime.UtcNow.Add(loginOptions.Value.TokenLifeTime),
-            claims: GetClaims(user),
+            claims: GetClaims(userId),
             signingCredentials: signingCredentials);
         
         return token;
     }
     
-    
-    private static List<Claim> GetClaims(User user) => 
+    private static List<Claim> GetClaims(Guid userId) => 
     [
-        new(nameof(user.Id), user.Id.ToString())
+        new("userId", userId.ToString())
     ];
 }
