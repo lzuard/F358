@@ -1,0 +1,72 @@
+@use './../../style/theme' as *;
+@use './../../style/typography' as *;
+
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background: $color-bg;
+}
+
+.auth-window {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background: $color-surface;
+  border-radius: 20px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+  min-width: 360px;
+  width: 40vw;
+  max-width: 480px;
+
+  h1 {
+    @include title;
+    margin-bottom: 1.5rem;
+    color: $color-text;
+  }
+
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .auth-hint {
+    @include ui-text;
+    color: $color-text-secondary;
+    margin-top: 1.5rem;
+
+    a {
+      color: $color-primary;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: $color-primary-hover;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .auth-window {
+    width: 90vw;
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
+
+    input {
+      max-width: 100%;
+    }
+  }
+}
