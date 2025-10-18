@@ -1,14 +1,15 @@
-import * as React from "react";
+import './style.scss'
 
 interface ButtonProps {
+    text: string;
     onClick: () => void;
-    children?: React.ReactNode;
+    disabled?: boolean
 }
 
-export function Button({ onClick, children }: ButtonProps) {
+export function Button({ text, onClick, disabled = false}: ButtonProps) {
     return(
-        <button onClick={onClick}>
-            {children}
+        <button onClick={onClick} disabled={disabled}>
+            {text}
         </button>
     )
 }

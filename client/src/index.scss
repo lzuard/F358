@@ -1,4 +1,5 @@
-@use './common' as *;
+@use './style/theme' as *;
+@use './style/typography' as *;
 
 /* Сброс базовых стилей */
 *,
@@ -9,8 +10,22 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: "Inter", "Segoe UI", sans-serif;
-    color: $color-text;
-    background: $color-bg;
+body{
+  font-family: "Inter", "Segoe UI", sans-serif;
+  color: $color-text;
+  background: $color-bg;
+  width: 100vw;
+  height: 100vh;
+}
+
+h1 {
+  @include title;
+}
+
+h2, h3 {
+  @include subtitle;
+}
+
+p {
+  @include body;
 }
