@@ -1,0 +1,27 @@
+@use '../../common' as *;
+
+.navbar{
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 1%;
+  background: $color-primary;
+  z-index: 100;
+}
+
+.navbarItem{
+  margin: 10px;
+  padding: 5px;
+  font-size: 16px;
+  background: $color-surface;
+  border-radius: 5px;
+  border: 1px solid $color-border;
+
+  &:hover {
+    background: $color-border;
+  }
+
+  &:active {
+    background: $color-primary;
+    border-color: $color-border;
+  }
+}

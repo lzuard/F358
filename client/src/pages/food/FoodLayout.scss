@@ -1,0 +1,17 @@
+@use '../../common' as *;
+
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: $color-bg;
+}
+
+/* ===== адаптивность ===== */
+@media (max-width: 900px) {
+  .container{
+    max-width: 100%;
+    border-radius: 0;
+    padding: 1rem;
+  }
+}
