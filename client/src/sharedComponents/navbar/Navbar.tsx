@@ -1,36 +1,37 @@
 import './Navbar.scss'
-import { Outlet, useNavigate} from "react-router-dom";
-
-interface INavbarProps {
-    linkTo: string,
-    children: React.ReactNode
-}
-
-function NavbarItem({linkTo, children}: INavbarProps) {
-    const navigate = useNavigate();
-    return(
-        <button className={"navbarItem"}
-                onClick={() => navigate(linkTo)}>
-            {children}
-        </button>
-    )
-}
+import { NavLink, Outlet } from "react-router-dom";
 
 function Navbar(){
-    return(
-        <nav className={"navbar"}>
-            <NavbarItem linkTo="/">Home</NavbarItem>
-            <NavbarItem linkTo="/about">About</NavbarItem>
-            <NavbarItem linkTo={"/food"}>Food</NavbarItem>
-        </nav>
-    )
+  return(
+    <nav className="navbar">
+      <div className="navbar-content">
+        <div className="navbar-logo">
+          <span className="logo-text">F358</span>
+        </div>
+
+        <div className="navbar-items">
+          <NavLink to="/" className={({ isActive }) => isActive ? "navbar-item active" : "navbar-item"}>
+            Главная
+          </NavLink>
+          <NavLink to="/food" className={({ isActive }) => isActive ? "navbar-item active" : "navbar-item"}>
+            Рецепты
+          </NavLink>
+          <NavLink to="/about" className={({ isActive }) => isActive ? "navbar-item active" : "navbar-item"}>
+            О системе
+          </NavLink>
+        </div>
+      </div>
+    </nav>
+  )
 }
 
 export function NavbarLayout(){
-    return(
-        <div>
-            <Navbar/>
-            <Outlet/>
-        </div>
-    )
+  return(
+    <div className="navbar-layout">
+      <Navbar/>
+      <main className="navbar-page">
+        <Outlet/>
+      </main>
+    </div>
+  )
 }

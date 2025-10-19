@@ -1,27 +1,70 @@
 @use '../../style/theme' as *;
+@use '../../style/typography' as *;
 
-.navbar{
-  padding: 10px;
+.navbar {
   width: 100%;
-  margin-bottom: 1%;
-  background: $color-primary;
+  background: $color-surface;
+  border-bottom: 1px solid $color-border;
+  box-shadow: 0 2px 6px rgba($color-border, 0.5);
+  position: sticky;
+  top: 0;
   z-index: 100;
 }
 
-.navbarItem{
-  margin: 10px;
-  padding: 5px;
-  font-size: 16px;
+.navbar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 40px;
+}
+
+.navbar-logo {
+  .logo-text {
+    @include title;
+    color: $color-primary;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+}
+
+.navbar-items {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.navbar-item {
+  @include ui-text;
   background: $color-surface;
-  border-radius: 5px;
-  border: 1px solid $color-border;
+  color: $color-text;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition:
+          background-color 0.2s ease,
+          border-color 0.2s ease,
+          color 0.2s ease;
 
   &:hover {
-    background: $color-border;
-  }
-
-  &:active {
-    background: $color-primary;
+    background-color: lighten($color-primary, 35%);
     border-color: $color-border;
   }
+
+  &.active {
+    background-color: $color-primary;
+    color: $color-surface;
+    border-color: darken($color-primary, 10%);
+  }
+}
+
+.navbar-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.navbar-page {
+  flex: 1;
+  background-color: $color-bg;
+  padding: 20px 40px;
 }
