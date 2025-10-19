@@ -2,15 +2,46 @@ import './AuthPage.scss'
 import Input from "../../sharedComponents/input/Input.tsx";
 import {Button} from "../../sharedComponents/button/Button.tsx";
 import {useEffect, useState} from "react";
+import {loginAsync} from "./actions.ts";
+import {ProcessStatus} from "../../utils/api/types.ts";
+import {toast} from "react-toastify";
 
 export function AuthPage() {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [isLoginEnabled, setIsLoginEnabled] = useState(false);
+  const [isLoginError, setIsLoginError] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
 
   useEffect(() => {
-    setIsLoginEnabled(login.length > 0 && password.length > 0);
-  }, [login, password]);
+    setIsLoginEnabled(login.length > 0 && password.length > 0 && !isLoginError);
+  }, [login, password, isLoginError]);
+
+  function handleLoginChange(value: string) {
+    setIsLoginError(false)
+    setLogin(value)
+  }
+
+  function handlePasswordChange(value: string) {
+    setIsLoginError(false)
+    setPassword(value)
+  }
+
+  const handleLogin = async () => {
+    localStorage.removeItem("token")
+    const result = await loginAsync({login, password})
+
+    if(result.status === ProcessStatus.Success) {
+      toast.success("Login successfully.")
+      localStorage.setItem("token", result.data[0])
+      setIsLoginError(false);
+      setErrors([]);
+    }
+    else{
+      setErrors(result.errors)
+      setIsLoginError(true)
+    }
+  }
 
   return (
     <div className="auth-container">
@@ -24,7 +55,7 @@ export function AuthPage() {
             label="Логин"
             placeholder="Введите ваш логин"
             value={login}
-            setValue={setLogin}
+            setValue={handleLoginChange}
           />
           <Input
             id="password"
@@ -32,15 +63,19 @@ export function AuthPage() {
             label="Пароль"
             placeholder="Введите пароль"
             value={password}
-            setValue={setPassword}
+            setValue={handlePasswordChange}
           />
+          {isLoginError && (
+            <div className="error-message">
+              {errors.map((val, index) => (<p id={index.toString()}>{val}</p>))}
+            </div>
+          )}
           <Button
             text="Войти"
-            onClick={() => alert(login + " " + password)}
+            onClick={handleLogin}
             disabled={!isLoginEnabled}
           />
         </div>
-
         <p className="auth-hint">
           Нет аккаунта? <a href="/register">Зарегистрироваться</a>
         </p>

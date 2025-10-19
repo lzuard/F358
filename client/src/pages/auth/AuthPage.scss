@@ -59,6 +59,12 @@
   }
 }
 
+.error-message {
+  p {
+    @include error-text;
+  }
+}
+
 @media (max-width: 600px) {
   .auth-window {
     width: 90vw;

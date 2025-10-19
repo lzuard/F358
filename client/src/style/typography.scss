@@ -44,3 +44,8 @@ $ui-weight: 500;
   letter-spacing: 0.02em;
   color: $color-text;
 }
+
+@mixin error-text {
+  @include ui-text;
+  color: $color-error
+}
