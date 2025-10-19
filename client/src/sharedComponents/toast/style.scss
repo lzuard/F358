@@ -1,0 +1,77 @@
+@use '../../style/theme' as *;
+@use '../../style/typography' as *;
+
+.Toastify__toast-container {
+  padding: 1rem;
+}
+
+.Toastify__toast {
+  @include ui-text;
+  background-color: $color-surface;
+  color: $color-text;
+  border: 1px solid $color-border;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 50px;
+  transition: all 0.2s ease;
+  font-family: $font-family-base;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.Toastify__toast-body {
+  @include body;
+  color: $color-text;
+}
+
+.Toastify__close-button {
+  color: $color-text-secondary;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+    color: $color-primary-hover;
+  }
+}
+
+/* ==== Типы уведомлений ==== */
+.Toastify__toast--success {
+  border-left: 5px solid $color-success;
+  background-color: lighten($color-surface, 2%);
+}
+
+.Toastify__toast--error {
+  border-left: 5px solid $color-error;
+  background-color: lighten($color-surface, 2%);
+}
+
+.Toastify__toast--info {
+  border-left: 5px solid $color-primary;
+}
+
+.Toastify__toast--warning {
+  border-left: 5px solid $color-primary-hover;
+}
+
+/* ==== Прогресс-бар ==== */
+.Toastify__progress-bar {
+  background: $color-primary;
+  height: 3px;
+  border-radius: 0 0 10px 10px;
+}
+
+.Toastify__progress-bar--success {
+  background: $color-success;
+}
+
+.Toastify__progress-bar--error {
+  background: $color-error;
+}

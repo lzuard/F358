@@ -3,11 +3,13 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import './index.scss'
 import App from './App.tsx'
+import {Toast} from "./sharedComponents/toast/ToastContainer.tsx";
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
       <BrowserRouter>
-          <App />
+        <App />
+        <Toast/>
       </BrowserRouter>
   </StrictMode>,
 )
