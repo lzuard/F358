@@ -1,8 +1,9 @@
 import axios, { AxiosError, type AxiosInstance } from 'axios';
 import {toast} from "react-toastify";
+import {useNavigate} from "react-router-dom";
 
 const apiClient: AxiosInstance = axios.create({
-  baseURL: "http://localhost:5550/v1", //TODO: add url
+  baseURL: "http://localhost:5550/v1", //TODO: use env
   headers: {
     'Content-Type': 'application/json',
   },
@@ -20,12 +21,14 @@ apiClient.interceptors.request.use((config) => {
 apiClient.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
+    const navigate = useNavigate();
     if (error.response) {
       const status = error.response.status;
 
       if (status === 401) {
         toast.warning("Сессия устарела. Необходимо заново войти в аккаунт.")
-        window.location.href = '/login'; //TODO: use router
+        localStorage.removeItem("token");
+        navigate("/auth");
       }
       else if (status === 503) {
         toast.error("В настоящий момент сервис недоступен. Попробуйте позже.")

@@ -4,7 +4,7 @@ import {Button} from "../../sharedComponents/button/Button.tsx";
 import {useEffect, useState} from "react";
 import {loginAsync} from "./actions.ts";
 import {ProcessStatus} from "../../utils/api/types.ts";
-import {toast} from "react-toastify";
+import {useNavigate} from "react-router-dom";
 
 export function AuthPage() {
   const [login, setLogin] = useState("");
@@ -12,6 +12,7 @@ export function AuthPage() {
   const [isLoginEnabled, setIsLoginEnabled] = useState(false);
   const [isLoginError, setIsLoginError] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoginEnabled(login.length > 0 && password.length > 0 && !isLoginError);
@@ -32,10 +33,10 @@ export function AuthPage() {
     const result = await loginAsync({login, password})
 
     if(result.status === ProcessStatus.Success) {
-      toast.success("Login successfully.")
       localStorage.setItem("token", result.data[0])
       setIsLoginError(false);
       setErrors([]);
+      navigate("/")
     }
     else{
       setErrors(result.errors)
@@ -67,7 +68,7 @@ export function AuthPage() {
           />
           {isLoginError && (
             <div className="error-message">
-              {errors.map((val, index) => (<p id={index.toString()}>{val}</p>))}
+              {errors.map((val, index) => (<p key={index}>{val}</p>))}
             </div>
           )}
           <Button
