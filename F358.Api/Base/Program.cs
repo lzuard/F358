@@ -35,16 +35,25 @@ builder.Services.AddAuthentication()
         options.MapInboundClaims = true;
     });
 builder.Services.AddEndpointsApiExplorer();
+var allowedOrigins = builder.Configuration.GetSection("CorsOrigins").Get<string[]>() ??
+                     throw new ArgumentNullException();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    Console.WriteLine("Started in development mode");
     app.MapOpenApi();
     app.UseOpenApi();
     app.UseSwaggerUi();
 }
+
+app.UseCors(policy => policy
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials()
+    .WithOrigins(allowedOrigins));
 
 app.UseMiddleware<AuthMiddleware>();
 app.MapControllers();
