@@ -4,7 +4,7 @@
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <UserSecretsId>8ea72510-8221-4e98-94d0-9d648f0f3099</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
@@ -30,6 +30,12 @@
       <Reference Include="JetBrains.Annotations">
         <HintPath>..\..\..\.nuget\packages\jetbrains.annotations\2025.2.0\lib\netstandard2.0\JetBrains.Annotations.dll</HintPath>
       </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
     </ItemGroup>
 
 </Project>

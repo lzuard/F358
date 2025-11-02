@@ -8,6 +8,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Packages.props = Directory.Packages.props
 		.infisical.json = .infisical.json
 		.gitignore = .gitignore
+		compose.yaml = compose.yaml
+		.dockerignore = .dockerignore
+		.env = .env
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F358.Api", "F358.Api\F358.Api.csproj", "{8539A05D-A6A8-47BE-9FD9-B2096D3FFA9B}"
@@ -61,5 +64,8 @@ Global
 		{57A0118E-55AA-4CEA-BA88-FCD3BA7FC5EB} = {F097EB17-8CDC-4E71-9F78-7C5A25E1580D}
 		{A6E18868-ED74-4DE3-A50F-F69CC7E9AC0A} = {33CDDA74-63AD-49D6-8278-59F9FDE29F37}
 		{B44BB3B2-3BC7-4EC8-8377-C4702F4940BB} = {F097EB17-8CDC-4E71-9F78-7C5A25E1580D}
+	EndGlobalSection
+	GlobalSection(RiderSharedRunConfigurations) = postSolution
+		File = F358.Api\.run\F358.Api_Dockerfile.run.xml
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,55 @@
+﻿services:
+  api:
+    image: f358.api
+    ports:
+      - "5550:8080"
+    build:
+      context: .
+      dockerfile: F358.Api/Dockerfile
+      
+  database.user:
+    image: postgres:16
+    container_name: database.user
+    restart: always
+    environment:
+      POSTGRES_USER: ${USER_DB_USER}
+      POSTGRES_PASSWORD: ${USER_DB_PASSWORD}
+      POSTGRES_DB: user
+    volumes:
+      - database.user.volume:/var/lib/postgresql/data
+    ports:
+      - "5561:5432"    
+      
+  services.user:
+    image: f358.userservice
+    ports:
+      - "5551:8080"
+    build:
+      context: .
+      dockerfile: F358.UserService/Service.Dockerfile
+  
+  
+  database.food:
+    image: postgres:16
+    container_name: database.food
+    restart: always
+    environment:
+      POSTGRES_USER: ${FOOD_DB_USER}
+      POSTGRES_PASSWORD: ${FOOD_DB_PASSWORD}
+      POSTGRES_DB: food
+    volumes:
+      - database.food.volume:/var/lib/postgresql/data
+    ports:
+      - "5562:5432"
+      
+  services.food:
+    image: f358.services.food
+    ports:
+      - "5552:8080"
+    build:
+      context: .
+      dockerfile: F358.Services.Food/Service.Dockerfile
+      
+volumes:
+  database.food.volume:
+  database.user.volume:
