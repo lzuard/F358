@@ -1,10 +1,12 @@
+using DotNetEnv;
 using F358.Services.Food.Database;
 
+Env.Load();
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 
-builder.Services.AddNpgsql<FoodDbContext>(builder.Configuration.GetConnectionString("Default"));
+builder.Services.AddNpgsql<FoodDbContext>(Environment.GetEnvironmentVariable("CONNECTION_STRING"));
 
 
 var app = builder.Build();

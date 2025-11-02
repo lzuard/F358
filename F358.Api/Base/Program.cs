@@ -1,10 +1,12 @@
 using System.Security.Cryptography;
+using DotNetEnv;
 using F358.Api.Base;
 using F358.Api.Middleware;
 using F358.Api.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
+Env.Load();
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,14 +18,14 @@ builder.Services.AddControllers();
 builder.Services.AddSingleton<AuthMiddleware>();
 builder.Services.AddScoped<FinancesClient<UserServiceOptions>>();
 
-
 builder.Services.Configure<UserServiceOptions>(builder.Configuration.GetSection("UserService"));
-builder.Services.Configure<Secrets>(builder.Configuration.GetSection("Secrets"));
 builder.Services.AddAuthentication()
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
     {
         var rsa = RSA.Create();
-        rsa.ImportRSAPublicKey(Convert.FromBase64String(builder.Configuration["Secrets:UserServiceTokenKey"]!), out _);
+        var key = Environment.GetEnvironmentVariable("USER_SERVICE_TOKEN_KEY") ?? throw new ArgumentNullException();
+        
+        rsa.ImportRSAPublicKey(Convert.FromBase64String(key), out _);
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = false,

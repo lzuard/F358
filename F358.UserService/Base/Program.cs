@@ -1,16 +1,17 @@
+using DotNetEnv;
 using F358.UserService.Base;
 using F358.UserService.Core;
 using F358.UserService.Database;
 using Microsoft.EntityFrameworkCore;
 
+Env.Load();
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
-builder.Services.Configure<SecretOptions>(builder.Configuration.GetSection(SecretOptions.SectionName));
 builder.Services.Configure<LoginOptions>(builder.Configuration.GetSection(LoginOptions.SectionName));
 
 builder.Services.AddNpgsql<UserDbContext>(
-    connectionString: builder.Configuration.GetConnectionString("Default"),
+    connectionString: Environment.GetEnvironmentVariable("CONNECTION_STRING"),
     npgSqlOptions =>
     {
         npgSqlOptions.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);

@@ -25,5 +25,9 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi"/>
     </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\F358.Shared\F358.Shared.csproj" />
+    </ItemGroup>
 
 </Project>

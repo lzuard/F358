@@ -14,7 +14,6 @@ namespace F358.UserService.Core;
 internal class AuthService(
     UserDbContext context,
     CryptoService cryptoService,
-    IOptions<SecretOptions> secretOptions,
     IOptions<LoginOptions> loginOptions)
 {
     private readonly Random _random = new();
@@ -70,11 +69,12 @@ internal class AuthService(
     
     private JwtSecurityToken GenerateToken(Guid userId)
     {
-        ArgumentNullException.ThrowIfNull(secretOptions.Value.JwtKey);
+        var jwtKey = Environment.GetEnvironmentVariable("JWT_KEY");
+        ArgumentNullException.ThrowIfNull(jwtKey);
 
         var rsa = RSA.Create();
         rsa.ImportRSAPrivateKey(
-            Convert.FromBase64String(secretOptions.Value.JwtKey), out _);
+            Convert.FromBase64String(jwtKey), out _);
         
         var signingCredentials = new SigningCredentials(
             key: new RsaSecurityKey(rsa),

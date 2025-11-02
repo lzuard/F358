@@ -1,11 +1,9 @@
 using System.Security.Cryptography;
-using F358.UserService.Base;
 using F358.UserService.Dto;
-using Microsoft.Extensions.Options;
 
 namespace F358.UserService.Core;
 
-internal class CryptoService(IOptions<SecretOptions> secretOptions)
+internal class CryptoService
 {
      private const int CurrentVersion = 1;
 
@@ -80,7 +78,7 @@ internal class CryptoService(IOptions<SecretOptions> secretOptions)
         }
     }
     
-    private byte[] GetKey() => Convert.FromBase64String(
-        secretOptions.Value.AuthEncryptionKey ?? 
+    private static byte[] GetKey() => Convert.FromBase64String(
+        Environment.GetEnvironmentVariable("AUTH_ENCRYPTION_KEY") ?? 
         throw new ArgumentNullException(null, "Encryption Key is null."));
 }
