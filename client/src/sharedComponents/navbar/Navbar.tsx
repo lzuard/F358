@@ -13,7 +13,7 @@ function Navbar(){
           <NavLink to="/" className={({ isActive }) => isActive ? "navbar-item active" : "navbar-item"}>
             Главная
           </NavLink>
-          <NavLink to="/food" className={({ isActive }) => isActive ? "navbar-item active" : "navbar-item"}>
+          <NavLink to="/recipes" className={({ isActive }) => isActive ? "navbar-item active" : "navbar-item"}>
             Рецепты
           </NavLink>
           <NavLink to="/about" className={({ isActive }) => isActive ? "navbar-item active" : "navbar-item"}>

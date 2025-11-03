@@ -1,0 +1,35 @@
+@use '../../style/theme' as *;
+
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: $color-bg;
+}
+
+.recipe-feed {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-block {
+  width: 100%;
+  max-width: 9000px;
+  margin-bottom: 3px;
+  background-color: $color-surface;
+  padding: 2rem;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+}
+
+/* ===== адаптивность ===== */
+@media (max-width: 900px) {
+  .container{
+    max-width: 100%;
+    border-radius: 0;
+    padding: 1rem;
+  }
+}
+
