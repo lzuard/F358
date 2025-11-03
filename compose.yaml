@@ -1,4 +1,12 @@
 ﻿services:
+  client:
+    image: client
+    ports:
+      - "5555:5173"
+    build:
+      context: client/
+      dockerfile: Dockerfile
+  
   api:
     image: f358.api
     ports:
