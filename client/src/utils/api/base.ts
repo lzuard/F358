@@ -3,7 +3,7 @@ import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 
 const apiClient: AxiosInstance = axios.create({
-  baseURL: "http://localhost:5550/v1", //TODO: use env
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },

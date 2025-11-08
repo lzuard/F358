@@ -12,11 +12,11 @@ COPY ["F358.Api/.env", "F358.Api/"]
 RUN dotnet restore "F358.Services.Food/F358.Services.Food.csproj"
 COPY . .
 WORKDIR "/src/F358.Services.Food"
-RUN dotnet build "./F358.Services.Food.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./F358.Services.Food.csproj" -c Release -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./F358.Services.Food.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./F358.Services.Food.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

@@ -11,7 +11,6 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.7" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.7" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.7" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.7" />
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
     <PackageVersion Include="NSwag.AspNetCore" Version="14.4.0" />

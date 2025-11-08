@@ -2,7 +2,7 @@
   client:
     image: client
     ports:
-      - "5555:5173"
+      - "8888:8888"
     build:
       context: client/
       dockerfile: Dockerfile
@@ -12,7 +12,7 @@
     ports:
       - "5550:8080"
     build:
-      context: .
+      context: ./
       dockerfile: F358.Api/Dockerfile
       
   database.user:
@@ -26,15 +26,15 @@
     volumes:
       - database.user.volume:/var/lib/postgresql/data
     ports:
-      - "5561:5432"    
+      - "6661:5432"    
       
   services.user:
-    image: f358.userservice
+    image: f358.services.user
     ports:
       - "5551:8080"
     build:
-      context: .
-      dockerfile: F358.UserService/Service.Dockerfile
+      context: ./
+      dockerfile: F358.UserService/Dockerfile
   
   
   database.food:
@@ -48,15 +48,15 @@
     volumes:
       - database.food.volume:/var/lib/postgresql/data
     ports:
-      - "5562:5432"
+      - "6662:5432"
       
   services.food:
     image: f358.services.food
     ports:
       - "5552:8080"
     build:
-      context: .
-      dockerfile: F358.Services.Food/Service.Dockerfile
+      context: ./
+      dockerfile: F358.Services.Food/Dockerfile
       
 volumes:
   database.food.volume:

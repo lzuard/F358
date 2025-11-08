@@ -14,6 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddOpenApiDocument();
 builder.Services.AddControllers();
+builder.Services.AddHttpLogging(_ => { });
 
 builder.Services.AddSingleton<AuthMiddleware>();
 builder.Services.AddScoped<FinancesClient<UserServiceOptions>>();
@@ -43,13 +44,13 @@ var allowedOrigins = builder.Configuration.GetSection("CorsOrigins").Get<string[
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    Console.WriteLine("Started in development mode");
+#if DEBUG
+    Console.WriteLine("Started in development mode, Http logging on");
     app.MapOpenApi();
     app.UseOpenApi();
     app.UseSwaggerUi();
-}
+    app.UseHttpLogging();
+#endif
 
 app.UseCors(policy => policy
     .AllowAnyHeader()

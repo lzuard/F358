@@ -66,6 +66,5 @@ Global
 		{B44BB3B2-3BC7-4EC8-8377-C4702F4940BB} = {F097EB17-8CDC-4E71-9F78-7C5A25E1580D}
 	EndGlobalSection
 	GlobalSection(RiderSharedRunConfigurations) = postSolution
-		File = F358.Api\.run\F358.Api_Dockerfile.run.xml
 	EndGlobalSection
 EndGlobal
