@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace F358.UserService.Database.Model;
+namespace F358.Services.User.Database.Model;
 
 internal class User
 {

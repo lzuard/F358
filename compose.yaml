@@ -34,7 +34,7 @@
       - "5551:8080"
     build:
       context: ./
-      dockerfile: F358.UserService/Dockerfile
+      dockerfile: F358.Services.User/Dockerfile
   
   
   database.food:

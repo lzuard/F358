@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
-using F358.UserService.Dto;
+using F358.Services.User.Dto;
 
-namespace F358.UserService.Core;
+namespace F358.Services.User.Core;
 
 internal class CryptoService
 {

@@ -1,4 +1,4 @@
-namespace F358.UserService.Base;
+namespace F358.Services.User.Base;
 
 public class LoginOptions
 {

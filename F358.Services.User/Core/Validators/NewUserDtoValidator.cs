@@ -1,8 +1,8 @@
 using System.Text.RegularExpressions;
-using F358.UserService.Dto;
+using F358.Services.User.Dto;
 using FluentValidation;
 
-namespace F358.UserService.Core.Validators;
+namespace F358.Services.User.Core.Validators;
 
 internal class NewUserDtoValidator : AbstractValidator<NewUserDto>
 {

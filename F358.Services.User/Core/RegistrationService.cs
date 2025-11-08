@@ -1,12 +1,12 @@
+using F358.Services.User.Core.Validators;
+using F358.Services.User.Database;
+using F358.Services.User.Dto;
 using F358.Shared.Dto;
 using F358.Shared.Extensions;
-using F358.UserService.Core.Validators;
-using F358.UserService.Database;
-using F358.UserService.Database.Model;
-using F358.UserService.Dto;
+using F358.Services.User.Database.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace F358.UserService.Core;
+namespace F358.Services.User.Core;
 
 internal class RegistrationService(
     UserDbContext context,
@@ -70,11 +70,11 @@ internal class RegistrationService(
     }
 
     
-    private User CreateUser(NewUserDto userInfo)
+    private Database.Model.User CreateUser(NewUserDto userInfo)
     {
         var data = cryptoService.Encrypt(userInfo.Password!);
 
-        return new User
+        return new Database.Model.User
         {
             Login = userInfo.Login!,
             PasswordEncrypted = data.Data,

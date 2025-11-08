@@ -1,15 +1,15 @@
-using F358.UserService.Database.Model;
+using F358.Services.User.Database.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace F358.UserService.Database;
+namespace F358.Services.User.Database;
 
 internal class UserDbContext(DbContextOptions options) : DbContext(options)
 {
-    public DbSet<User> Users { get; set; } = null!;
+    public DbSet<Model.User> Users { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>()
+        modelBuilder.Entity<Model.User>()
             .HasIndex(e => e.Login)
             .IncludeProperties(e => new { e.Id, e.PasswordEncrypted, e.EncryptionVersion });
     }

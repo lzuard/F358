@@ -1,7 +1,7 @@
 using DotNetEnv;
-using F358.UserService.Base;
-using F358.UserService.Core;
-using F358.UserService.Database;
+using F358.Services.User.Base;
+using F358.Services.User.Core;
+using F358.Services.User.Database;
 using Microsoft.EntityFrameworkCore;
 
 Env.Load();

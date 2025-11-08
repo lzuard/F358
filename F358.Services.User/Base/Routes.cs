@@ -1,8 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
-using F358.UserService.Core;
-using F358.UserService.Dto;
+using F358.Services.User.Core;
+using F358.Services.User.Dto;
 
-namespace F358.UserService.Base;
+namespace F358.Services.User.Base;
 
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Local")]
 internal static class Routes

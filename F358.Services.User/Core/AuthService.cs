@@ -1,15 +1,15 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using F358.Services.User.Base;
+using F358.Services.User.Database;
+using F358.Services.User.Dto;
 using F358.Shared.Dto;
-using F358.UserService.Base;
-using F358.UserService.Database;
-using F358.UserService.Dto;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace F358.UserService.Core;
+namespace F358.Services.User.Core;
 
 internal class AuthService(
     UserDbContext context,
