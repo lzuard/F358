@@ -1,10 +1,11 @@
-import './AuthPage.scss'
+import './style.scss'
 import Input from "../../sharedComponents/input/Input.tsx";
 import {Button} from "../../sharedComponents/button/Button.tsx";
 import {useEffect, useState} from "react";
 import {loginAsync} from "./actions.ts";
 import {ProcessStatus} from "../../utils/api/types.ts";
 import {useNavigate} from "react-router-dom";
+import {HintWithLink} from "../../sharedComponents/HintWithLink/HintWithLink.tsx";
 
 export function AuthPage() {
   const [login, setLogin] = useState("");
@@ -31,6 +32,8 @@ export function AuthPage() {
   const handleLogin = async () => {
     localStorage.removeItem("token")
     const result = await loginAsync({login, password})
+
+    if (result === null) return;
 
     if(result.status === ProcessStatus.Success) {
       localStorage.setItem("token", result.data[0])
@@ -77,9 +80,11 @@ export function AuthPage() {
             disabled={!isLoginEnabled}
           />
         </div>
-        <p className="auth-hint">
-          Нет аккаунта? <a href="/register">Зарегистрироваться</a>
-        </p>
+        <HintWithLink
+          linkTo="/registration"
+          linkToText="Зарегистрироваться"
+          textBeforeLink="Нет аккаунта?"
+        />
       </div>
     </div>
   )

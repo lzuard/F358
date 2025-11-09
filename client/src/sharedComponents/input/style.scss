@@ -7,43 +7,81 @@
   gap: 6px;
   width: 100%;
 
+  .label-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
   label {
     @include ui-text;
     color: $color-text-secondary;
     font-weight: 500;
   }
 
-  input {
-    @include ui-text;
-    background-color: $color-surface;
-    color: $color-text;
-    border: 1px solid $color-border;
-    border-radius: 6px;
-    padding: 8px 12px;
-    transition:
-            border-color 0.2s ease,
-            box-shadow 0.2s ease,
-            background-color 0.2s ease;
+  &.error label {
+    color: $color-error;
+  }
 
-    &:hover {
-      border-color: $color-primary;
+  .input-wrapper {
+    position: relative;
+    width: 100%;
+
+    input {
+      @include ui-text;
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      background-color: $color-surface;
+      color: $color-text;
+      border: 1px solid $color-border;
+      border-radius: 6px;
+      padding: 8px 40px 8px 12px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+
+      &:hover {
+        border-color: $color-primary;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: $color-primary;
+        box-shadow: 0 0 0 3px rgba($color-primary, 0.2);
+        background-color: lighten($color-surface, 1%);
+      }
+
+      &:disabled {
+        background-color: $color-border;
+        color: rgba($color-text, 0.6);
+        cursor: not-allowed;
+      }
+
+      &::placeholder {
+        color: rgba($color-text-secondary, 0.7);
+      }
     }
 
-    &:focus {
-      outline: none;
-      border-color: $color-primary;
-      box-shadow: 0 0 0 3px rgba($color-primary, 0.2);
-      background-color: lighten($color-surface, 1%);
-    }
+    .toggle-password-btn {
+      position: absolute;
+      right: 10px;
+      top: 22%;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.7;
+      width: 20px;
+      margin: 0;
 
-    &:disabled {
-      background-color: $color-border;
-      color: rgba($color-text, 0.6);
-      cursor: not-allowed;
-    }
-
-    &::placeholder {
-      color: rgba($color-text-secondary, 0.7);
+      img {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+        pointer-events: none;
+      }
     }
   }
 

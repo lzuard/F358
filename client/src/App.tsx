@@ -1,9 +1,12 @@
-import {Navigate, Outlet, Route, Routes} from "react-router-dom";
+import {Navigate, Outlet, Route, Routes, useNavigate} from "react-router-dom";
 import {NavbarLayout} from "./sharedComponents/navbar/Navbar.tsx";
 import {HomePage} from "./pages/home/HomePage.tsx";
 import {AboutPage} from "./pages/about/AboutPage.tsx";
 import {AuthPage} from "./pages/auth/AuthPage.tsx";
 import {RecipeListPage} from "./pages/recipeList/RecipeList.tsx";
+import {useEffect} from "react";
+import {ConfigureClient} from "./utils/api/base.ts";
+import {RegisterPage} from "./pages/auth/RegisterPage.tsx";
 
 
 function LoggedInLayout() {
@@ -25,6 +28,12 @@ function LoggedOutLayout() {
 
 function App() {
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    ConfigureClient(navigate)
+  }, [navigate]);
+
   return (
     <Routes>
       <Route element={<LoggedInLayout/>}>
@@ -36,7 +45,8 @@ function App() {
       </Route>
 
       <Route element={<LoggedOutLayout/>}>
-        <Route path="/Auth" element={<AuthPage/>}/>
+        <Route path="/auth" element={<AuthPage/>}/>
+        <Route path="/registration" element={<RegisterPage/>}/>
       </Route>
     </Routes>
   )
